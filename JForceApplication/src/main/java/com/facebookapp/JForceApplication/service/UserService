@@ -1,0 +1,21 @@
+package com.facebokapp.JForceApplication.service;
+
+
+import com.facebokapp.JForceApplication.model.Post;
+import com.facebokapp.JForceApplication.model.User;
+
+import java.util.List;
+
+public interface UserService {
+
+    List<User> getAllUsers();
+    List<Post> getAllPost();
+
+    User getUserById(int id);
+    Post getPostById(int pid);
+    User findByPassword(String s);
+    void saveUser(User user);
+    void savePost(Post post);
+    void deleteUser(int id);
+    void deletePost(int pid);
+}
