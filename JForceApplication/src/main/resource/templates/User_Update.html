@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+
+    <th:block th:include="fragments/header :: head"> </th:block>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+</head>
+<body>
+<script>
+        function myfun()
+        {
+                var a=document.getElementById("password").value;
+                var b=document.getElementById("cpassword").value
+                var c=document.getElementById("fname").value
+                var d= document.getElementById("lname").value
+               var e=  document.getElementById("email").value
+               var f = document.getElementById("uname").value
+                if(a=="")
+                {
+                        document.getElementById("message").innerHTML="**Please fill Password";
+                        return false;
+                }
+                   if(c=="")
+                {
+                        document.getElementById("message").innerHTML="**Please fill firstname";
+                        return false;
+                }
+                   if(d=="")
+                {
+                        document.getElementById("message").innerHTML="**Please fill lastname";
+                        return false;
+                }
+                   if(e=="")
+                {
+                        document.getElementById("message").innerHTML="**Please fill Email";
+                        return false;
+                }
+                   if(f=="")
+                {
+                        document.getElementById("message").innerHTML="**Please fill Username";
+                        return false;
+                }
+                if(a!=b)
+                {
+                     document.getElementById("messages").innerHTML="**Password and confirmed password does not match";
+                     return false;
+                }
+        }
+
+    </script>
+<div class="container">
+    <br>
+    <nav>  <th:block th:replace="fragments/nav :: nav"></th:block>   </nav>
+    <br>
+    <h1>
+        Welcome TO Facebook Clone
+    </h1>
+
+    <form name="myForm" onsubmit="return myfun()"  th:object="${userForm}"  method="post" th:action="@{/addUserAdmin}"  cssClass="form" >
+
+        <input type="hidden" th:field="*{id}"/>
+
+        <div class="form-group">
+            <label>Firstname</label>
+            <input th:field="*{firstName}" id="fname" type="text" class="form-control" required="true"/>
+        </div>
+        <div class="form-group">
+            <label>Lastname</label>
+            <input th:field="*{lastName}" id="lname" type="text" class="form-control" required="true" />
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input th:field="*{email}" id="email"type="text" class="form-control" required="true"
+                   pattern="[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*"/>
+        </div>
+        <div class="form-group">
+            <label>Username</label>
+            <input th:field="*{userName}" id="uname" type="text" class="form-control" required="true" />
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Update</button>
+        <div class="form-group">
+            <a href="/login">Already registred? Click here</a>
+        </div>
+    </form>
+    <br>
+
+    <footer>
+
+        <th:block th:include="fragments/footer :: footer"></th:block>
+
+    </footer>
+
+</div>
+</body>
+</html>
