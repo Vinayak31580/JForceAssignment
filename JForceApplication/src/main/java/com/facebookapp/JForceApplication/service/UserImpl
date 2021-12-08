@@ -1,0 +1,76 @@
+package com.facebokapp.JForceApplication.service;
+
+import com.facebokapp.JForceApplication.model.Post;
+import com.facebokapp.JForceApplication.model.User;
+import com.facebokapp.JForceApplication.repo.PostRepo;
+import com.facebokapp.JForceApplication.repo.UserRepo;
+import com.facebokapp.JForceApplication.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Service
+@Transactional
+public class UserImpl implements UserService {
+
+    @Autowired
+    UserRepo repository;
+    @Autowired
+    PostRepo repo;
+
+    @Override
+    public List<User> getAllUsers() {
+        return (List<User>) repository.findAll();
+    }
+
+    @Override
+    public List<Post> getAllPost() {
+        return (List<Post>) repo.findAll();
+    }
+
+    @Override
+    public User getUserById(int id) {
+        return repository.findById(id).get();
+    }
+
+    @Override
+    public Post getPostById(int pid) {
+        return repo.findById(pid).get();
+    }
+
+
+    @Override
+    public User findByPassword(String s) {
+        System.out.println("Username is   " + s);
+        User uname = repository.findByUsername(s);
+        System.out.println(repository.findByUsername(s));
+
+        return uname;
+    }
+
+    @Override
+    public void saveUser(User user) {
+
+        repository.save(user);
+    }
+
+
+    @Override
+    public void savePost(Post post) {
+        repo.save(post);
+    }
+
+    @Override
+    public void deleteUser(int id) {
+
+        repository.deleteById(id);
+    }
+
+    @Override
+    public void deletePost(int pid) {
+        repo.deleteById(pid);
+    }
+
+}
