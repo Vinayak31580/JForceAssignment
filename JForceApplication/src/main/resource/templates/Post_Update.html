@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="fragments/header :: head"> </th:block>
+    <script>
+            function validateForm() {
+            let x = document.forms["myForm"]["firstName"].value;
+            if (x == "") {
+    alert("Name must be filled out");
+    return false;
+    }
+    }
+    </script>
+</head>
+<body>
+
+<script>
+        function mypost()
+        {
+                var a=document.getElementById("pname").value;
+                var b=document.getElementById("pcontent").value
+
+                if(b.length<12)
+                {
+                    document.getElementById("pcmessage").innerHTML="Post should be greater than 12 words**";
+                    return false;
+                }
+                if(a=="")
+                {
+                        document.getElementById("pmessage").innerHTML="**Please fill Post Name***";
+                        return false;
+                }
+                if(b=="")
+                {
+                        document.getElementById("pcmessage").innerHTML="**Please fill Post Content**";
+                        return false;
+                }
+
+        }
+
+    </script>
+<div class="container">
+    <br>
+    <nav>  <th:block th:replace="fragments/nav :: nav"></th:block>   </nav>
+    <br>
+    <h1>
+        Add the Post
+    </h1>
+
+
+    <form name="myForm" onsubmit="return mypost()"  th:object="${userForm}"  method="post" th:action="@{/addPostAdmin}"  cssClass="form" >
+
+        <input type="hidden" th:field="*{pid}"/>
+
+
+
+        <div class="form-group">
+            <label>Post name</label>
+            <input th:field="*{pname}" id="pname" type="text" class="form-control" />
+            <span id="pmessage"></span>
+        </div>
+        <div class="form-group">
+            <label>Post Content</label>
+            <textarea th:field="*{pcontent}" id="pcontent"type="text" class="form-control"  />
+            <span id="pcmessage"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Post</button>
+    </form>
+    <br>
+
+    <footer>
+
+        <th:block th:include="fragments/footer :: footer"></th:block>
+
+    </footer>
+
+</div>
+</body>
+</html>
